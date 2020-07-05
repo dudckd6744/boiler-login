@@ -2,17 +2,17 @@ var express = require('express');
 var app = express();
 const bodyparser = require('body-parser');
 const {User} = require('./models/User');
+const config = require('./config/key')
 
 app.use(bodyparser.urlencoded({ extended: true }))
 
 app.use(bodyparser.json())
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://dudckd:djajsl11@youtb-mdyrj.mongodb.net/<dbname>?retryWrites=true&w=majority',{
+mongoose.connect(config.mongoURI,{
     useNewUrlParser:true,  useUnifiedTopology:true, useCreateIndex:true, useFindAndModify: false
 }).then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err))
-
 app.get('/', (req,res) => {
     res.send('hellow')
 })
